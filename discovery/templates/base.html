@@ -1,25 +1,30 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+<head>
     <meta charset="UTF-8">
     <title>Title</title>
     <!--Import Google Icon Font-->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <!--Import materialize.css-->
-    <link type="text/css" rel="stylesheet" href="{% static "css/materialize.min.css" %}"  media="screen,projection"/>
+    <link type="text/css" rel="stylesheet" href="{% static "css/materialize.min.css" %}" media="screen,projection"/>
 
     <!--Let browser know website is optimized for mobile-->
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  </head>
 
-  <body>
+</head>
 
-    {% block body %}
-    {% endblock %}
-    
-    <!--JavaScript at end of body for optimized loading-->
-    <script type="text/javascript" src="{% static "js/materialize.min.js" %}"></script>
-    <script type="text/javascript" src="{% static "js/main.js" %}"></script>
-  </body>
+<body>
+
+{% block body %}
+{% endblock %}
+
+<!--JavaScript at end of body for optimized loading-->
+<script
+        src="https://code.jquery.com/jquery-3.3.1.js"
+        integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
+        crossorigin="anonymous"></script>
+<script type="text/javascript" src="{% static "js/materialize.min.js" %}"></script>
+<script type="text/javascript" src="{% static "js/main.js" %}"></script>
+</body>
 </html>

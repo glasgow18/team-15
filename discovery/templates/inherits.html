@@ -68,7 +68,8 @@
       {% include "activityForm.html" %}
     </div>
     <div class="modal-footer">
-      <a href="#!" class="modal-close waves-effect waves-green btn-flat">Agree</a>
+      <a href="#!" class="modal-close waves-effect waves-green btn-flat">Cancel</a>
+      <a href="#!" class="modal-close waves-effect waves-green btn-flat" id="submitActivityForm">Submit</a>
     </div>
   </div>
 
@@ -76,13 +77,14 @@
   <a class="waves-effect waves-light btn modal-trigger" href="#modal2">Add Location</a>
 
   <!-- Modal Structure -->
-  <div id="modal2" class="modal">
+  <div id="modal2" class="modal" >
     <div class="modal-content">
       <h4>Add location</h4>
       {% include "locationForm.html" %}
     </div>
     <div class="modal-footer">
-      <a href="#!" class="modal-close waves-effect waves-green btn-flat">Agree</a>
+      <a href="#!" class="modal-close waves-effect waves-green btn-flat">Cancel</a>
+      <a href="#!" class="modal-close waves-effect waves-green btn-flat" id="submitLocationForm">Submit</a>
     </div>
   </div>
 
