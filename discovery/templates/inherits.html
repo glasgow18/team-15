@@ -4,5 +4,10 @@
 {% block body %}
     <p>This is some body text</p>
 
-    {{ result }}
+
+    {% for item in result %}
+        {{ item.name }} <br> {{ item.description }}
+
+    {% endfor %}
+
 {% endblock %}
