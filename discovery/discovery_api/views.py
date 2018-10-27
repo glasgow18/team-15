@@ -65,9 +65,6 @@ class LocationViewSet(viewsets.ModelViewSet):
 
         request.data["activities"] = actual_activities
 
-        print(request.data)
-        print("YEYEYEYE")
-
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         self.perform_create(serializer)
