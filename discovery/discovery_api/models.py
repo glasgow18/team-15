@@ -67,6 +67,6 @@ class Location(models.Model):
 
 class Review(models.Model):
     userName = models.CharField(max_length=20)
-    locationID = models.ForeignKey(Location, on_delete=models.SET_NULL, null=True)
+    location = models.ForeignKey(Location, on_delete=models.SET_NULL, null=True)
     reviewDescription = models.CharField(max_length=1000)
 
