@@ -4,7 +4,7 @@ from django.shortcuts import render
 
 # Create your views here.
 from discovery_frontend.forms import AddLocationForm
-from discovery_frontend.models import Location
+from discovery_api.models import Location
 
 
 def hello(req):

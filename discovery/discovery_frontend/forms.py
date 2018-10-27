@@ -1,6 +1,6 @@
 from django.forms import ModelForm
 
-from discovery_frontend.models import Location
+from discovery_api.models import Location
 
 
 class AddLocationForm(ModelForm):
