@@ -2,8 +2,9 @@ from django.contrib.auth.models import User
 from django.shortcuts import render
 
 # Create your views here.
-from rest_framework import viewsets, status
+from rest_framework import viewsets, status, parsers, renderers
 from rest_framework.response import Response
+from rest_framework.views import APIView
 
 from discovery_api.models import Location, Warnings, KeyWord, Activity
 from discovery_api.serializers import UserSerializer, LocationSerializer
@@ -73,3 +74,14 @@ class LocationViewSet(viewsets.ModelViewSet):
 
     def perform_create(self, serializer):
         serializer.save()
+
+
+class SearchView(APIView):
+    throttle_classes = ()
+    permission_classes = ()
+    parser_classes = (parsers.FormParser, parsers.MultiPartParser, parsers.JSONParser,)
+    renderer_classes = (renderers.JSONRenderer,)
+
+    def post(self, request, *args, **kwargs):
+        print(request.data)
+        return Response({'result': []})
