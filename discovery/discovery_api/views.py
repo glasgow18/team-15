@@ -5,7 +5,7 @@ from django.shortcuts import render
 from rest_framework import viewsets, status
 from rest_framework.response import Response
 
-from discovery_api.models import Location
+from discovery_api.models import Location, Warnings
 from discovery_api.serializers import UserSerializer, LocationSerializer
 
 
@@ -22,7 +22,21 @@ class LocationViewSet(viewsets.ModelViewSet):
     serializer_class = LocationSerializer
 
     def create(self, request, *args, **kwargs):
-        print("we're good, we do the modification on the request here")
+        print(request.data["warnings"])
+        warning_names = request.data["warnings"].lower().split(", ")
+        actual_warnings = []
+
+        for warningName in warning_names:
+            existing_warnings = Warnings.objects.filter(name=warningName.strip())
+            if len(existing_warnings) != 0:
+                actual_warnings.append(existing_warnings.first().id)
+            else:
+                new_warning = Warnings.objects.create(name=warningName)
+                new_warning.save()
+                actual_warnings.append(new_warning.id)
+
+        print(request.data)
+
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         self.perform_create(serializer)
