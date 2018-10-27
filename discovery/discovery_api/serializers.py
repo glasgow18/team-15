@@ -11,9 +11,25 @@ class UserSerializer(serializers.ModelSerializer):
 
 
 class LocationSerializer(serializers.ModelSerializer):
+
+    def create(self, validated_data):
+        print(validated_data)
+
+        obj = Location.objects.create(**validated_data)
+        obj.save()
+        return obj
+
+    # def create(self, request, *args, **kwargs):
+    #     raw_data = request.data
+    #     serializer = self.get_serializer(data=raw_data)
+    #     if serializer.is_valid(raise_exception=True):
+    #         serializer.save()  # Include the user when saving.
+
     class Meta:
         model = Location
-        fields = ('name', 'free', 'price', 'description', 'address', 'contact')
+        fields = (
+        'name', 'free', 'price', 'description', 'address', 'contact', 'possibleActivities', 'keyWords', 'warnings',
+        'activities')
 
 
 class ContactSerializer(serializers.ModelSerializer):
