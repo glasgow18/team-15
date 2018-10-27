@@ -38,8 +38,10 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'rest_framework',
     'discovery',
-    'discovery_frontend'
+    'discovery_frontend',
+    'discovery_api'
 ]
 
 MIDDLEWARE = [

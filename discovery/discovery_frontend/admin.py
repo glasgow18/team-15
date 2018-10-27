@@ -1,7 +1,7 @@
 from django.contrib import admin
 
 # Register your models here.
-from discovery_frontend.models import Location, KeyWord, Category, Review, Activity, Warnings, ContactDetail
+from discovery_api.models import Location, KeyWord, Category, Review, Activity, Warnings, ContactDetail
 
 
 class LocationAdmin(admin.ModelAdmin):
