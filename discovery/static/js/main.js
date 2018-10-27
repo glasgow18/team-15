@@ -8,11 +8,9 @@ document.addEventListener('DOMContentLoaded', function () {
             console.log("same");
         }
     });
-
+    var card = document.querySelectorAll('.CardWrapper');
+    M.Modal.init(card, {})
 });
-
-//
-// $('modal1').modal.options.onOpenStart=clearFormData();
 
 $(document).ready(function () {
     $('#submitLocationForm').click(function () {

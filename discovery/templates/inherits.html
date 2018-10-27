@@ -14,7 +14,6 @@
 
 
     <!--Search bar -->
-
     <div class="search">
         <div class="input-field">
             <input id="search" type="search" required>
@@ -24,37 +23,52 @@
     </div>
 
 
-    <!-- Context Wrapper that contains all the cards -->
+    <!-- Context Wrapper that contains all the cards after js for loop -->
     <div id="ContextWrapper">
-
     </div>
+
+    <!-- Card Details Structure -->
+    <div id="CardDetails" class="modal">
+        <div class="modal-content">
+            <h4>Modal Header</h4>
+            <p>A bunch of text</p>
+        </div>
+        <div class="modal-footer">
+            <a href="#!" class="modal-close waves-effect waves-green btn-flat">Agree</a>
+        </div>
+    </div>
+
     <!-- One Card -->
-    <div id="CardWrapper">
-        <div class="row">
-            <div class="col s12 m6">
-                <div class="card white">
-                    <div class="card-content black-text">
-                        <span class="card-title">Multi Purpose Church Hall - St James Church </span>
-                        <p> Hall for hire, multi activity, sound or music space, flexible use, quiet, solitary, room,
-                            safe. </p>
-                    </div>
-                    <div class="card-action">
-                        <div>
-                            <a>Contact </a>
-                            <div>01968 768954</div>
+    <!-- CardDetails Trigger - Card details are shown when clicked on the card-->
+    <a href="#CardDetails" class="modal-trigger">
+        <div id="CardWrapper">
+            <div class="row">
+                <div class="col s12 m6">
+                    <div class="card white">
+                        <div class="card-content black-text">
+                            <span class="card-title">Multi Purpose Church Hall - St James Church </span>
+                            <p> Hall for hire, multi activity, sound or music space, flexible use, quiet, solitary,
+                                room,
+                                safe. </p>
+                        </div>
+                        <div class="card-action">
+                            <div>
+                                <div>01968 768954</div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
+    </a>
+
 
     <!-- Loop to create cards -->
     <script>
         var wrapper = document.getElementById("ContextWrapper");
         var cardWrapper = document.getElementById("CardWrapper");
         // 0 currently means that there is still one card, namely the one in the cardwrapper above
-        for (var i = 0; i < 10; i++) {
+        for (var i = 0; i < 0; i++) {
             wrapper.innerHTML += cardWrapper.innerHTML
         }
 
