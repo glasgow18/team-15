@@ -186,6 +186,7 @@ $(document).ready(function () {
         $('#map').show();
 
         for (let i = 0; i < currentItems.length; i++) {
+
             let item = currentItems[i];
             if (item.hasOwnProperty('lat') && item.hasOwnProperty('long')) {
                 if (item.lat !== null && item.lat !== null && item.long !== null && item.lat !== null) {

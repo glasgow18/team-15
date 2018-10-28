@@ -60,8 +60,8 @@ class Location(models.Model):
     warnings = models.ManyToManyField(Warnings, help_text="warnings")
     activities = models.ManyToManyField(Activity, help_text="tags")
 
-    lat = models.FloatField(null=True)
-    long = models.FloatField(null=True)
+    lat = models.FloatField(null=True, blank=True)
+    long = models.FloatField(null=True, blank=True)
 
     def __str__(self):
         return self.name
