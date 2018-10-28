@@ -135,7 +135,7 @@ class CommentsView(ListAPIView):
     authentication_classes = (CsrfExemptSessionAuthentication,)
     renderer_classes = (renderers.JSONRenderer,)
     def post(self, request, *args, **kwargs):
-        comments = Comment.objects.filter(location_id=request.data['location'])
+        comments = Comment.objects.filter(location__name=request.data['location'])
         return Response(CommentSerializer(comments, context={'request': request}, many=True).data, status=status.HTTP_200_OK)
 
 
@@ -147,12 +147,12 @@ class CreateCommentView(APIView):
     renderer_classes = (renderers.JSONRenderer,)
 
     def post(self, request, *args, **kwargs):
+
         comment = request.data['comment']
-        location_id = request.data['id']
-        new_activity = Comment.objects.create(content=comment, location=Location.objects.get(pk=location_id))
+        location_name = request.data['name']
+        new_activity = Comment.objects.create(content=comment, location=Location.objects.filter(name=location_name).first())
         annotations = (analyze(comment))
         score = annotations.document_sentiment.score
-        print(score)
         if score > 0:
             return Response(CommentSerializer(new_activity, context={'request': request}).data, status=status.HTTP_200_OK)
         else:

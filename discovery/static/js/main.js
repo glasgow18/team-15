@@ -19,6 +19,7 @@ var cardHtml = `
 `;
 
 var currentItems = [];
+var currentlySelected = null;
 
 function getCookie(name) {
     var cookieValue = null;
@@ -100,6 +101,23 @@ var getSearchResponse = function () {
 
 
 $(document).ready(function () {
+
+    $('#submitComment').click(function () {
+        var locationId = currentlySelected.name;
+        $.ajax({
+            url: "/api/createcomment/",
+            type: "POST",
+            dataType: 'json',
+            contentType: 'application/json',
+            data: JSON.stringify({'name': currentlySelected.name, comment: $('#comment-body').val()})
+        }).done(function (data) {
+            for (let i = 0; i < data.length; i++) {
+                console.log(data[i]['content']);
+                $('.comments-list').append("<p>" + data[i]['content'] + "</p>");
+
+            }
+        });
+    });
 
     var elems = document.querySelectorAll('.modal');
     M.Modal.init(elems, {
@@ -236,16 +254,33 @@ var generate_card_data = function (data) {
         curCard = curCard.replace("%DATALOCATION%", escape(JSON.stringify(item)));
         $(cardWrapper).append(curCard.replace("%POSS_ACT%", item.possibleActivities))
         currentItems.push(item);
+
     }
 
     $('.modal-trigger').click(function () {
         var encodedData = $(this).data("location");
         if (encodedData !== null && encodedData !== undefined) {
             var locationData = JSON.parse(unescape(encodedData));
-            console.log(locationData);
+
             $('#location-card-title').text(locationData.name);
             $('#location-card-description').text(locationData.description);
             $('#location-activities').text(locationData.possibleActivities)
+            currentlySelected = locationData;
+            $.ajax({
+                url: "/api/locationcomments/",
+                type: "POST",
+                dataType: 'json',
+                contentType: 'application/json',
+                data: JSON.stringify({'location': locationData.name})
+            }).done(function (data) {
+                $('.comments-list').empty();
+                for (let i = 0; i < data.length; i++) {
+                    console.log(data[i]['content']);
+                    $('.comments-list').append("<p>" + data[i]['content'] + "</p>");
+
+                }
+            });
+
         }
 
     });
