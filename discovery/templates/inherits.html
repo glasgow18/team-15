@@ -25,7 +25,7 @@
     <div class="row">
         <div class='input-field col s12'>
             <select id="selectCategory">
-                <option value="" disabled selected> Choose Category</option>
+                <option value="" selected> Choose Category</option>
                 {% for category in categories %}
                     <option value="{{ category.id }}">{{ category.name }}</option>
                 {% endfor %}
@@ -35,13 +35,17 @@
 
         <div class='input-field col s12'>
             <select id="selectActivity">
-                <option value="" disabled selected> Choose Activity</option>
+                <option value="" selected> Choose Activity</option>
                 {% for activity in activities %}
                     <option value="{{ activity.id }}">{{ activity.name }}</option>
                 {% endfor %}
             </select>
             <label>Activities</label>
         </div>
+    </div>
+
+    <div id="cardCount">
+
     </div>
 
     <!-- Card Details Structure -->
@@ -57,7 +61,7 @@
     </div>
 
     <!-- Contains all the cards-->
-    <div id="CardWrapper">
+    <div id="CardWrapper" class="cardWrapper">
     </div>
 
     <!-- Floating Action Button -->

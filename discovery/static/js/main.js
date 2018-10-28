@@ -34,19 +34,43 @@ document.addEventListener('DOMContentLoaded', function () {
     var instances = M.FloatingActionButton.init(fab, {});
 });
 
+$("#CardDetails").click(function (){
+
+});
+
 var getSearchResponse = function () {
+
+    var numItems = 0;
 
     var selectActivity = parseInt($('#selectActivity').val());
     var selectCategory = parseInt($('#selectCategory').val());
 
+    if(selectCategory == NaN && selectActivity == NaN){
+        document.getElementById("cardCount").innerHTML = "Rows:"+ numItems;
+        return;
+    }
+
     var toSend = {'activity': selectActivity, 'category': selectCategory};
-    console.log(toSend);
     $.ajax({
         url: "/api/search/",
         type: "POST",
         data: toSend
     }).done(function(data) {
         console.log(data);
+        if(data.length>0) {
+            document.getElementById("CardWrapper").innerHTML = "";
+            numItems=0;
+            for (let i = 0; i < data.length; i++) {
+                console.log(data[i])
+                var item = data[i];
+                var cardWrapper = $("#CardWrapper");
+                var curCard = cardHtml.replace("%TITLE%", item.name)
+                curCard = curCard.replace("%DESC%", item.description)
+                $(cardWrapper).append(curCard.replace("%POSS_ACT%", item.possibleActivities))
+                numItems++;
+            }
+        }
+        document.getElementById("cardCount").innerHTML = "Rows:"+ numItems;
     });
 };
 
@@ -56,6 +80,9 @@ $(document).ready(function () {
 
     $('select').change(function() {
         getSearchResponse();
+
+
+
     });
 
     $('#submitLocationForm').click(function () {
@@ -92,10 +119,9 @@ $(document).ready(function () {
             var curCard = cardHtml.replace("%TITLE%", item.name)
             curCard = curCard.replace("%DESC%", item.description)
             $(cardWrapper).append(curCard.replace("%POSS_ACT%", item.possibleActivities))
-
         }
-
     })
+
 
     $('#addActivity').click(function() {
 
