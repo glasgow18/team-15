@@ -90,8 +90,8 @@ $(document).ready(function () {
         for (let i = 0; i < data.length; i++) {
             var item = data[i];
             var cardWrapper = $("#CardWrapper");
-            var curCard = cardHtml.replace("%TITLE%", item.name)
-            curCard = curCard.replace("%DESC%", item.description)
+            var curCard = cardHtml.replace("%TITLE%", item.name);
+            curCard = curCard.replace("%DESC%", item.description);
             $(cardWrapper).append(curCard.replace("%POSS_ACT%", item.possibleActivities))
 
         }
