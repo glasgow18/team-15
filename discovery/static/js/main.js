@@ -39,27 +39,47 @@ $("#CardDetails").click(function (){
 
 });
 
+var getSearchBarResponse = function() {
+   var searchBox= document.getElementById('search');
+   var filter = {'filter': searchBox.value}
+   var numItems = 0;
+    if(searchBox.value=="")
+    {
+        get_original_card_data()
+        return
+    }
+   $.ajax({
+        url: "/api/search_bar/",
+        type: "POST",
+        data: filter
+    }).done(function(data) {
+        if(data.length>0) {
+            numItems=data.length;
+            generate_card_data(data)
+        }
+        else{
+            get_original_card_data()
+        }
+        $('#selectActivity').val("")
+        $("#selectActivity").formSelect()
+        $('#selectCategory').val("")
+        $("#selectCategory").formSelect()
+        document.getElementById("cardCount").innerHTML = "Rows Returned : "+numItems;
+    });
+};
+
+
 var getSearchResponse = function () {
 
     var numItems = 0;
 
     var selectActivity = parseInt($('#selectActivity').val());
     var selectCategory = parseInt($('#selectCategory').val());
-
-    if(selectCategory == NaN && selectActivity == NaN){
-        document.getElementById("cardCount").innerHTML = "Rows:"+ numItems;
-        $.get('/api/locations', function (data, status) {
-        for (let i = 0; i < data.length; i++) {
-            var item = data[i];
-            var cardWrapper = $("#CardWrapper");
-            var curCard = cardHtml.replace("%TITLE%", item.name)
-            curCard = curCard.replace("%DESC%", item.description)
-            $(cardWrapper).append(curCard.replace("%POSS_ACT%", item.possibleActivities))
-        }
-        return;
-    })
+    if($('#selectActivity').val()=="" && $('#selectCategory').val()=="")
+    {
+        get_original_card_data()
+        return
     }
-
     var toSend = {'activity': selectActivity, 'category': selectCategory};
     $.ajax({
         url: "/api/search/",
@@ -68,20 +88,17 @@ var getSearchResponse = function () {
     }).done(function(data) {
         console.log(data);
         if(data.length>0) {
-            document.getElementById("CardWrapper").innerHTML = "";
-            numItems=0;
-            for (let i = 0; i < data.length; i++) {
-                console.log(data[i])
-                var item = data[i];
-                var cardWrapper = $("#CardWrapper");
-                var curCard = cardHtml.replace("%TITLE%", item.name)
-                curCard = curCard.replace("%DESC%", item.description)
-                $(cardWrapper).append(curCard.replace("%POSS_ACT%", item.possibleActivities))
-                numItems++;
-            }
+            numItems=data.length;
+            generate_card_data(data)
         }
+        else{
+            get_original_card_data()
+        }
+
+        document.getElementById("cardCount").innerHTML = "Rows Returned : "+numItems;
     });
 };
+
 
 $(document).ready(function () {
     $('select').formSelect();
@@ -100,6 +117,15 @@ $(document).ready(function () {
     $('#submitActivityForm').click(function () {
         console.log(getFormData($("#activityForm")));
     });
+
+    $('#search').keypress(function (e) {
+        var key = e.which;
+        if(key == 13)  // the enter key code
+        {
+            getSearchBarResponse();
+        }
+    });
+
 });
 
 
@@ -119,18 +145,27 @@ function clearFormData() {
 }
 
 // Gets location data from backend and displays it in cards
+var generate_card_data=function(data){
+    document.getElementById("CardWrapper").innerHTML = "";
+    for (let i = 0; i < data.length; i++) {
+        var item = data[i];
+        var cardWrapper = $("#CardWrapper");
+        var curCard = cardHtml.replace("%TITLE%", item.name)
+        curCard = curCard.replace("%DESC%", item.description)
+        $(cardWrapper).append(curCard.replace("%POSS_ACT%", item.possibleActivities))
+    }
+};
+
+var get_original_card_data=function(){
+    $.get('/api/locations', function (data, status) {
+        generate_card_data(data)
+    })
+    document.getElementById("cardCount").innerHTML = ""
+};
 
 $(document).ready(function () {
-    $.get('/api/locations', function (data, status) {
-        for (let i = 0; i < data.length; i++) {
-            var item = data[i];
-            var cardWrapper = $("#CardWrapper");
-            var curCard = cardHtml.replace("%TITLE%", item.name)
-            curCard = curCard.replace("%DESC%", item.description)
-            $(cardWrapper).append(curCard.replace("%POSS_ACT%", item.possibleActivities))
-        }
-    })
 
+    get_original_card_data()
 
     $('#addActivity').click(function() {
         $('#modal1').modal('open');

@@ -8,6 +8,7 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 
 from discovery_api.models import Location, Warnings, KeyWord, Activity
+from discovery_api.search import SearchBar
 from discovery_api.serializers import UserSerializer, LocationSerializer
 
 from rest_framework.authentication import SessionAuthentication, BasicAuthentication
@@ -109,3 +110,14 @@ class SearchView(ListAPIView):
         print(locationsByCategory)
         return Response(LocationSerializer(locations, context={'request': request}, many=True).data,
                         status=status.HTTP_200_OK)
+
+class SearchBarView(ListAPIView):
+    throttle_classes = ()
+    permission_classes = ()
+    parser_classes = (parsers.FormParser, parsers.MultiPartParser, parsers.JSONParser,)
+    authentication_classes = (CsrfExemptSessionAuthentication,)
+    renderer_classes = (renderers.JSONRenderer,)
+
+    def post(self, request, *args, **kwargs):
+        locations=SearchBar.search_str(request.data['filter'])
+        return Response(LocationSerializer(locations, context={'request': request}, many=True).data,status=status.HTTP_200_OK)
