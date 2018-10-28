@@ -37,7 +37,7 @@
             <select id="selectActivity">
                 <option value="" disabled selected> Choose Activity</option>
                 {% for activity in activities %}
-                    <option value="{{ activity.name }}">{{ activity.name }}</option>
+                    <option value="{{ activity.id }}">{{ activity.name }}</option>
                 {% endfor %}
             </select>
             <label>Activities</label>

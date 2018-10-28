@@ -3,6 +3,7 @@ from django.shortcuts import render
 
 # Create your views here.
 from rest_framework import viewsets, status, parsers, renderers
+from rest_framework.generics import ListAPIView
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
@@ -84,17 +85,27 @@ class LocationViewSet(viewsets.ModelViewSet):
         serializer.save()
 
 
-class SearchView(APIView):
+class SearchView(ListAPIView):
     throttle_classes = ()
     permission_classes = ()
     parser_classes = (parsers.FormParser, parsers.MultiPartParser, parsers.JSONParser,)
     authentication_classes = (CsrfExemptSessionAuthentication,)
-
     renderer_classes = (renderers.JSONRenderer,)
 
     def post(self, request, *args, **kwargs):
-        print(request.data)
-        # do some database query here based on request.data
-        results = request.data
+        category = request.data['category']
+        activity = request.data['activity']
 
-        return Response({'result': []})
+        locationsByCategory = Location.objects.filter(activities__category_id=category).all() if str(
+            category).isdigit() else None
+        locationsByActivity = Location.objects.filter(activities__id=activity).all() if str(
+            activity).isdigit() else None
+
+        print(locationsByCategory)
+        print(locationsByActivity)
+        locations = locationsByCategory.intersection(
+            locationsByActivity) if locationsByCategory is not None and locationsByActivity is not None else locationsByCategory if locationsByCategory is not None else locationsByActivity
+
+        print(locationsByCategory)
+        return Response(LocationSerializer(locations, context={'request': request}, many=True).data,
+                        status=status.HTTP_200_OK)

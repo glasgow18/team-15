@@ -12,16 +12,17 @@ document.addEventListener('DOMContentLoaded', function () {
 
 var getSearchResponse = function () {
 
-    var formData = {};
-    var selectActivity = $('#selectActivity').val();
-    var selectCategory = $('#selectCategory').val();
+    var selectActivity = parseInt($('#selectActivity').val());
+    var selectCategory = parseInt($('#selectCategory').val());
 
-    var toSend = Object.assign({'activity': selectActivity, 'category': selectCategory}, formData);
-
+    var toSend = {'activity': selectActivity, 'category': selectCategory};
+    console.log(toSend);
     $.ajax({
         url: "/api/search/",
         type: "POST",
         data: toSend
+    }).done(function(data) {
+        console.log(data);
     });
 };
 
