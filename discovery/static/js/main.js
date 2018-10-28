@@ -98,11 +98,11 @@ $(document).ready(function () {
     })
 
     $('#addActivity').click(function() {
-
+        $('#modal1').modal('open');
     });
 
     $('#addLocation').click(function() {
-
+        $('#modal2').modal('open');
     });
 
 });
