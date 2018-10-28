@@ -2,18 +2,16 @@
 var cardHtml = `
 <div class="col s12 m12 l6 container-col">
 <a href="#CardDetails" class="modal-trigger" data-location="%DATALOCATION%">
-    <div class="card white place-card">
+    <div class="card white place-card row">
         <div class="card-content black-text">
+        <div style="max-width: 15%;float: right;" >%IMAGE%</div>
             <span id="loc_name" class="card-title">%TITLE%</span>
-            %IMAGE%
             <p>%DESC%</p>
         </div>
-        <div class="card-action">
+        <div class="divider"></div>
             <div>
-                <div>%POSS_ACT%</div>
+                <h6><div class="col">%POSS_ACT%</div></h6>
             </div>
-
-        </div>
     </div>
 </a>
 </div>
@@ -220,9 +218,9 @@ var generate_card_data = function (data) {
         curCard = curCard.replace("%DESC%", item.description);
         curCard = curCard.replace("%DATALOCATION%", escape(JSON.stringify(item)));
         console.log(item.picture)
-        //if(item.picture){
-            //img="<img class='circle responsive-img' src="+item.picture+">"
-        //}
+        if(item.picture){
+            img="<img class='circle responsive-img' src="+item.picture+">"
+        }
         curCard = curCard.replace("%IMAGE%",img)
         $(cardWrapper).append(curCard.replace("%POSS_ACT%", item.possibleActivities))
     }
@@ -235,6 +233,8 @@ var generate_card_data = function (data) {
             $('#location-card-title').text(locationData.name);
             $('#location-card-description').text(locationData.description);
             $('#location-activities').text(locationData.possibleActivities)
+            $('#location-card-price').text(locationData.price)
+            $('#location-img').attr(src)
         }
 
     });

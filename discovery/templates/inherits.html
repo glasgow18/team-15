@@ -2,7 +2,7 @@
 {% load static %}
 
 {% block body %}
-    <nav>
+    <nav xmlns="http://www.w3.org/1999/html">
         <div class="nav-wrapper">
             <a href="#!" class="brand-logo"><i class="material-icons"></i>Discovery</a>
             <ul class="right hide-on-med-and-down">
@@ -62,11 +62,20 @@
     <!-- Card Details Structure -->
     <div id="CardDetails" class="modal">
         <div class="modal-content">
-            <h4>Title: <span id="location-card-title"></span></h4>
-            <p>Description <span id="location-card-description"></span></p>
+            <div class="row">
+                <h5><div> <span class="col" id="location-card-title"></span></div></h5>
+                <h5><div style="max-width: 20%; float:right">Price: £<span id="location-card-price"></span></div></h5>
+            </div>
+            <div style="max-width: 25%;float: right;"><img id="location-img" alt="" class="circle responsive-img col"></div>
+            <div class="row">
+                <div class="col"><p>Description: <span id="location-card-description"></span></p></div>
+            </div>
+            <div class="row>">
+                <div class="divider"></div>
+                <div class="col"><p>Activities: <h6><span id="location-activities"></span></h6></p></div>
+            </div>
 
-            <p>Activities: <span id="location-activities"></span></p>
-            <i class="material-icons">location_on</i>
+        </div>
         </div>
         <div class="modal-footer">
             <a href="#!" class="modal-close waves-effect waves-green btn-flat">Agree</a>
