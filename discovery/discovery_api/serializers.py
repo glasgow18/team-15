@@ -35,7 +35,7 @@ class LocationSerializer(serializers.ModelSerializer):
         model = Location
         fields = (
             'name', 'free', 'price', 'description', 'address', 'contact', 'possibleActivities', 'keyWords', 'warnings',
-            'activities', 'lat', 'long')
+            'activities', 'lat', 'long','picture')
 
 
 class ContactSerializer(serializers.ModelSerializer):

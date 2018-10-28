@@ -5,6 +5,7 @@ var cardHtml = `
     <div class="card white place-card">
         <div class="card-content black-text">
             <span id="loc_name" class="card-title">%TITLE%</span>
+            %IMAGE%
             <p>%DESC%</p>
         </div>
         <div class="card-action">
@@ -17,7 +18,6 @@ var cardHtml = `
 </a>
 </div>
 `;
-
 
 function getCookie(name) {
     var cookieValue = null;
@@ -214,10 +214,16 @@ var generate_card_data = function (data) {
     document.getElementById("CardWrapper").innerHTML = "";
     for (let i = 0; i < data.length; i++) {
         var item = data[i];
+        var img="";
         var cardWrapper = $("#CardWrapper");
         var curCard = cardHtml.replace("%TITLE%", item.name);
         curCard = curCard.replace("%DESC%", item.description);
         curCard = curCard.replace("%DATALOCATION%", escape(JSON.stringify(item)));
+        console.log(item.picture)
+        //if(item.picture){
+            //img="<img class='circle responsive-img' src="+item.picture+">"
+        //}
+        curCard = curCard.replace("%IMAGE%",img)
         $(cardWrapper).append(curCard.replace("%POSS_ACT%", item.possibleActivities))
     }
 
