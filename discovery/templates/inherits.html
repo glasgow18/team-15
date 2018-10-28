@@ -26,8 +26,9 @@
     <!-- Card Details Structure -->
     <div id="CardDetails" class="modal">
         <div class="modal-content">
-            <h4>Modal Header</h4>
-            <p>A bunch of text</p>
+            <h4>Title</h4>
+            <p>Description</p>
+            <i class="material-icons">location_on</i>
         </div>
         <div class="modal-footer">
             <a href="#!" class="modal-close waves-effect waves-green btn-flat">Agree</a>
@@ -37,7 +38,6 @@
     <!-- Contains all the cards-->
     <div id="CardWrapper">
     </div>
-
 
     <!-- Floating Action Button -->
     <div class="fixed-action-btn">
@@ -58,6 +58,16 @@
     <!-- Modal Trigger -->
     <a class="waves-effect waves-light btn c" href="#modal1">Add new activity</a>
 
+    <!-- Modal Structure - new event -->
+    <div id="modal1" class="modal">
+        <div class="modal-content">
+            {% include "activityForm.html" %}
+        </div>
+        <div class="modal-footer">
+            <a href="#!" class="modal-close waves-effect waves-green btn-flat">Cancel</a>
+            <a href="#!" class="modal-close waves-effect waves-green btn-flat" id="submitActivityForm">Submit</a>
+        </div>
+    </div>
     <!-- Modal Structure -->
     <div id="modal1" class="modal">
         <div class="modal-content">
@@ -84,5 +94,21 @@
             <a href="#!" class="modal-close waves-effect waves-green btn-flat" id="submitLocationForm">Submit</a>
         </div>
     </div>
+    <!-- Modal Structure - location -->
+    <div id="modal2" class="modal">
+        <div class="modal-content">
+            <h4>Add location</h4>
+            {% include "locationForm.html" %}
+        </div>
+        <div class="modal-footer">
+            <a href="#!" class="modal-close waves-effect waves-green btn-flat">Cancel</a>
+            <a href="#!" class="modal-close waves-effect waves-green btn-flat" id="submitLocationForm">Submit</a>
+        </div>
+    </div>
+
+
+
+    <!-- Footer -->
+
 
 {% endblock %}
