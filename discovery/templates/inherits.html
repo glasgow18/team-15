@@ -2,62 +2,63 @@
 
 
 {% block body %}
-<nav>
-    <div class="nav-wrapper">
-        <a href="#!" class="brand-logo"><i class="material-icons"></i>Discovery</a>
-        <ul class="right hide-on-med-and-down">
-            <li><a href=""><i class="material-icons">search</i></a></li>
-            <li><a href="mobile.html"><i class="material-icons">more_vert</i></a></li>
-        </ul>
-    </div>
-</nav>
+    <nav>
+        <div class="nav-wrapper">
+            <a href="#!" class="brand-logo"><i class="material-icons"></i>Discovery</a>
+            <ul class="right hide-on-med-and-down">
+                <li><a href=""><i class="material-icons">search</i></a></li>
+                <li><a href="mobile.html"><i class="material-icons">more_vert</i></a></li>
+            </ul>
+        </div>
+    </nav>
 
 
-<!--Search bar -->
-
-<div class="search">
+    <!--Search bar -->
+    <div class="search">
         <div class="input-field">
-          <input id="search" type="search" required>
-          <label class="label-icon" for="search"><i class="material-icons">search</i></label>
-          <i class="material-icons">close</i>
+            <input id="search" type="search" required>
+            <label class="label-icon" for="search"><i class="material-icons">search</i></label>
+            <i class="material-icons">close</i>
         </div>
-</div>
-
-
-    <!-- Cards -->
-    <div class="row">
-        <div class="col s12 m6">
-          <div class="card white">
-            <div class="card-content black-text">
-              <span class="card-title">Multi Purpose Church Hall - St James Church </span>
-              <p> Hall for hire, multi activity, sound or music space, flexible use, quiet, solitary, room, safe. </p>
-            </div>
-            <div class="card-action">
-                <div>
-                    <a>Contact </a>
-                     <div>01968 768954 </div>
-                    </div>
-            </div>
-          </div>
-        </div>
-      </div>
+    </div>
 
     <div class="row">
-        <div class="col s12 m6">
-          <div class="card white">
-            <div class="card-content black-text">
-              <span class="card-title">Outdoor Day Service - Tiphereth Camphill Community</span>
-              <p> Day Service, Outdoors, Environmental, Composting, Litter Collection, Woodwork, Gardening, group based, nature. </p>
-            </div>
-            <div class="card-action">
-                <div>
-                    <a>Contact </a>
-                     <div>0131 441 2055 </div>
-                    </div>
-            </div>
-          </div>
+        <div class='input-field col s12'>
+            <select id="selectCategory">
+                <option value="" disabled selected> Choose Category</option>
+                {% for category in categories %}
+                    <option value="{{ category.id }}">{{ category.name }}</option>
+                {% endfor %}
+            </select>
+            <label>Categories</label>
         </div>
-      </div>
+
+        <div class='input-field col s12'>
+            <select id="selectActivity">
+                <option value="" disabled selected> Choose Activity</option>
+                {% for activity in activities %}
+                    <option value="{{ activity.id }}">{{ activity.name }}</option>
+                {% endfor %}
+            </select>
+            <label>Activities</label>
+        </div>
+    </div>
+
+    <!-- Card Details Structure -->
+    <div id="CardDetails" class="modal">
+        <div class="modal-content">
+            <h4>Title</h4>
+            <p>Description</p>
+            <i class="material-icons">location_on</i>
+        </div>
+        <div class="modal-footer">
+            <a href="#!" class="modal-close waves-effect waves-green btn-flat">Agree</a>
+        </div>
+    </div>
+
+    <!-- Contains all the cards-->
+    <div id="CardWrapper">
+    </div>
 
     <!-- Floating Action Button -->
     <div class="fixed-action-btn">
@@ -65,44 +66,65 @@
             <i class="large material-icons">mode_edit</i>
         </a>
         <ul>
-            <li><a class="btn-floating red"><i class="material-icons">insert_chart</i></a></li>
-            <li><a class="btn-floating yellow darken-1"><i class="material-icons">format_quote</i></a></li>
-            <li><a class="btn-floating green"><i class="material-icons">publish</i></a></li>
-            <li><a class="btn-floating blue"><i class="material-icons">attach_file</i></a></li>
+            <li><a id="addLocation" class="btn-floating green"><i class="material-icons">add</i></a></li>
+            <li><a id="addActivity" class="btn-floating blue"><i class="material-icons">add_alert</i></a></li>
         </ul>
     </div>
 
-    <!--{{ result }}-->
+    <!-- Modal Trigger -->
+    <a class="waves-effect waves-light btn modal-trigger" href="#modal1">Add Activity</a>
 
-
-  <!-- Modal Trigger -->
-  <a class="waves-effect waves-light btn modal-trigger" href="#modal1">Add new activity</a>
-
-  <!-- Modal Structure -->
-  <div id="modal1" class="modal">
-    <div class="modal-content">
-      <h4>Modal Header</h4>
-      {% include "activityForm.html" %}
+    <!-- Modal Structure - new event -->
+    <div id="modal1" class="modal">
+        <div class="modal-content">
+            {% include "activityForm.html" %}
+        </div>
+        <div class="modal-footer">
+            <a href="#!" class="modal-close waves-effect waves-green btn-flat">Cancel</a>
+            <a href="#!" class="modal-close waves-effect waves-green btn-flat" id="submitActivityForm">Submit</a>
+        </div>
     </div>
-    <div class="modal-footer">
-      <a href="#!" class="modal-close waves-effect waves-green btn-flat">Cancel</a>
-      <a href="#!" class="modal-close waves-effect waves-green btn-flat" id="submitActivityForm">Submit</a>
+    <!-- Modal Structure -->
+    <div id="modal1" class="modal">
+        <div class="modal-content">
+            <h4>Modal Header</h4>
+            {% include "activityForm.html" %}
+        </div>
+        <div class="modal-footer">
+            <a href="#!" class="modal-close waves-effect waves-green btn-flat">Cancel</a>
+            <a href="#!" class="modal-close waves-effect waves-green btn-flat" id="submitActivityForm">Submit</a>
+        </div>
     </div>
-  </div>
 
-  <!-- Modal Trigger -->
-  <a class="waves-effect waves-light btn modal-trigger" href="#modal2">Add Location</a>
+    <!-- Modal Trigger -->
+    <a class="waves-effect waves-light btn modal-trigger" href="#modal2">Add Location</a>
 
-  <!-- Modal Structure -->
-  <div id="modal2" class="modal" >
-    <div class="modal-content">
-      <h4>Add location</h4>
-      {% include "locationForm.html" %}
+    <!-- Modal Structure -->
+    <div id="modal2" class="modal">
+        <div class="modal-content">
+            <h4>Add location</h4>
+            {% include "locationForm.html" %}
+        </div>
+        <div class="modal-footer">
+            <a href="#!" class="modal-close waves-effect waves-green btn-flat">Cancel</a>
+            <a href="#!" class="modal-close waves-effect waves-green btn-flat" id="submitLocationForm">Submit</a>
+        </div>
     </div>
-    <div class="modal-footer">
-      <a href="#!" class="modal-close waves-effect waves-green btn-flat">Cancel</a>
-      <a href="#!" class="modal-close waves-effect waves-green btn-flat" id="submitLocationForm">Submit</a>
+    <!-- Modal Structure - location -->
+    <div id="modal2" class="modal">
+        <div class="modal-content">
+            <h4>Add location</h4>
+            {% include "locationForm.html" %}
+        </div>
+        <div class="modal-footer">
+            <a href="#!" class="modal-close waves-effect waves-green btn-flat">Cancel</a>
+            <a href="#!" class="modal-close waves-effect waves-green btn-flat" id="submitLocationForm">Submit</a>
+        </div>
     </div>
-  </div>
+
+
+
+    <!-- Footer -->
+
 
 {% endblock %}

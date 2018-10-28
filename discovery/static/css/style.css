@@ -2,12 +2,37 @@
 /**
  * Use this file to override Materialize files
  */
-.search{
+.search {
     margin: 50px 7px 27px;
     padding-right: 20px;
     padding-left: 20px;
 }
 
-.price{
+.price {
     padding-right: 20px;
+}
+
+.modal h1 {
+    font-size: 2.1rem;
+}
+
+.modal h4 {
+    font-size: 2.1rem;
+}
+
+.flex-container {
+    flex-wrap: wrap;
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+}
+
+.place-card {
+    width: 50%;
+    min-width: 55%;
+    margin: 10px !important;
+}
+
+.material-icons{
+    small: 2rem;
 }
