@@ -74,5 +74,5 @@ class Review(models.Model):
 
 
 class Comment(models.Model):
-    location = models.ForeignKey(Location)
+    location = models.ForeignKey(Location, on_delete=models.SET_NULL, null=True)
     content = models.CharField(max_length=1000)

@@ -14,6 +14,44 @@ from discovery_api.serializers import UserSerializer, LocationSerializer, Commen
 from rest_framework.authentication import SessionAuthentication, BasicAuthentication
 
 
+
+
+
+def print_result(annotations):
+    from google.cloud import language
+    from google.cloud.language import enums
+    from google.cloud.language import types
+    score = annotations.document_sentiment.score
+    magnitude = annotations.document_sentiment.magnitude
+
+    for index, sentence in enumerate(annotations.sentences):
+        sentence_sentiment = sentence.sentiment.score
+        print('Sentence {} has a sentiment score of {}'.format(
+            index, sentence_sentiment))
+
+    print('Overall Sentiment: score of {} with magnitude of {}'.format(
+        score, magnitude))
+    return 0
+
+
+def analyze(content):
+    from google.cloud import language
+    from google.cloud.language import enums
+    from google.cloud.language import types
+    """Run a sentiment analysis request on text within a passed filename."""
+    client = language.LanguageServiceClient()
+
+    document = types.Document(
+        content=content,
+        type=enums.Document.Type.PLAIN_TEXT)
+    annotations = client.analyze_sentiment(document=document)
+
+    # Print the results
+    return annotations
+
+
+
+
 class CsrfExemptSessionAuthentication(SessionAuthentication):
 
     def enforce_csrf(self, request):
@@ -27,6 +65,10 @@ class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all().order_by('-date_joined')
     serializer_class = UserSerializer
 
+
+class CommentsViewSet(viewsets.ModelViewSet):
+    queryset = Comment.objects.all()
+    serializer_class = CommentSerializer
 
 class LocationViewSet(viewsets.ModelViewSet):
     queryset = Location.objects.all()
@@ -97,6 +139,24 @@ class CommentsView(ListAPIView):
         return Response(CommentSerializer(comments, context={'request': request}, many=True).data, status=status.HTTP_200_OK)
 
 
+class CreateCommentView(APIView):
+    throttle_classes = ()
+    permission_classes = ()
+    parser_classes = (parsers.FormParser, parsers.MultiPartParser, parsers.JSONParser,)
+    authentication_classes = (CsrfExemptSessionAuthentication,)
+    renderer_classes = (renderers.JSONRenderer,)
+
+    def post(self, request, *args, **kwargs):
+        comment = request.data['comment']
+        location_id = request.data['id']
+        new_activity = Comment.objects.create(content=comment, location=Location.objects.get(pk=location_id))
+        annotations = (analyze(comment))
+        score = annotations.document_sentiment.score
+        print(score)
+        if score > 0:
+            return Response(CommentSerializer(new_activity, context={'request': request}).data, status=status.HTTP_200_OK)
+        else:
+            return Response(status=status.HTTP_400_BAD_REQUEST)
 
 
 class SearchView(ListAPIView):
@@ -149,3 +209,5 @@ class AddLocation(ListAPIView):
         location.save()
 
         return Response(status=status.HTTP_200_OK)
+
+

@@ -3,11 +3,13 @@ from django.urls import include
 from rest_framework import routers
 
 from discovery_api import views
-from discovery_api.views import SearchView, SearchBarView, AddLocation, CommentsView
+from discovery_api.views import SearchView, SearchBarView, AddLocation, CommentsView, CreateCommentView
 
 router = routers.DefaultRouter()
 router.register(r'users', views.UserViewSet)
 router.register(r'locations', views.LocationViewSet)
+router.register(r'comments', views.CommentsViewSet)
+
 
 # Wire up our API using automatic URL routing.
 # Additionally, we include login URLs for the browsable API.
@@ -17,5 +19,6 @@ urlpatterns = [
     url('search_bar/', SearchBarView.as_view()),
     url('addlocation/', AddLocation.as_view()),
     url('locationcomments', CommentsView.as_view()),
+    url('createcomment', CreateCommentView.as_view()),
     url('api-auth/', include('rest_framework.urls', namespace='rest_framework'))
 ]
