@@ -2,10 +2,11 @@ from django.contrib.auth.models import User
 from django.shortcuts import render
 
 # Create your views here.
-from rest_framework import viewsets, status
+from rest_framework import viewsets, status, parsers, renderers
 from rest_framework.response import Response
+from rest_framework.views import APIView
 
-from discovery_api.models import Location, Warnings, KeyWord
+from discovery_api.models import Location, Warnings, KeyWord, Activity
 from discovery_api.serializers import UserSerializer, LocationSerializer
 
 
@@ -26,12 +27,12 @@ class LocationViewSet(viewsets.ModelViewSet):
         # pull warnings from request
         warning_names = request.data["warnings"].lower().split(", ")
         actual_warnings = []
-        for warningName in warning_names:
-            existing_warnings = Warnings.objects.filter(name=warningName.strip())
+        for warning_name in warning_names:
+            existing_warnings = Warnings.objects.filter(name=warning_name.strip())
             if len(existing_warnings) != 0:
                 actual_warnings.append(existing_warnings.first().id)
             else:
-                new_warning = Warnings.objects.create(name=warningName)
+                new_warning = Warnings.objects.create(name=warning_name.strip())
                 new_warning.save()
                 actual_warnings.append(new_warning.id)
 
@@ -41,17 +42,29 @@ class LocationViewSet(viewsets.ModelViewSet):
         actual_keywords = []
         keyword_names = request.data["keyWords"].lower().split(", ")
         for keyword_name in keyword_names:
-            existing_keywords = KeyWord.objects.filter(name=keyword_name.strip())
+            existing_keywords = KeyWord.objects.filter(tag=keyword_name.strip())
             if len(existing_keywords) != 0:
                 actual_keywords.append(existing_keywords.first().id)
             else:
-                new_keyword = Warnings.objects.create(name=existing_keywords)
+                new_keyword = KeyWord.objects.create(tag=keyword_name.strip())
                 new_keyword.save()
                 actual_keywords.append(new_keyword.id)
 
         request.data["keyWords"] = actual_keywords
 
-        print(request.data)
+        actual_activities = []
+        activity_names = request.data["activities"].lower().split(", ")
+
+        for activity_name in activity_names:
+            existing_activities = Activity.objects.filter(name=activity_name.strip())
+            if len(existing_activities) != 0:
+                actual_activities.append(existing_activities.first().id)
+            else:
+                new_activity = Activity.objects.create(name=activity_name.strip())
+                new_activity.save()
+                actual_activities.append(new_activity.id)
+
+        request.data["activities"] = actual_activities
 
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
@@ -61,3 +74,14 @@ class LocationViewSet(viewsets.ModelViewSet):
 
     def perform_create(self, serializer):
         serializer.save()
+
+
+class SearchView(APIView):
+    throttle_classes = ()
+    permission_classes = ()
+    parser_classes = (parsers.FormParser, parsers.MultiPartParser, parsers.JSONParser,)
+    renderer_classes = (renderers.JSONRenderer,)
+
+    def post(self, request, *args, **kwargs):
+        print(request.data)
+        return Response({'result': []})
