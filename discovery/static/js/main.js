@@ -111,4 +111,9 @@ $(document).ready(function () {
        $('#map').show();
     });
 
+    $('#btnViewList').click(function() {
+       $('#CardWrapper').show();
+       $('#map').hide();
+    })
+
 });
