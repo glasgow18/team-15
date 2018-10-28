@@ -3,6 +3,7 @@ from django.urls import include
 from rest_framework import routers
 
 from discovery_api import views
+from discovery_api.views import SearchView
 
 router = routers.DefaultRouter()
 router.register(r'users', views.UserViewSet)
@@ -12,5 +13,6 @@ router.register(r'locations', views.LocationViewSet)
 # Additionally, we include login URLs for the browsable API.
 urlpatterns = [
     url('/', include(router.urls)),
-    url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework'))
+    url('search/', SearchView.as_view()),
+    url('api-auth/', include('rest_framework.urls', namespace='rest_framework'))
 ]

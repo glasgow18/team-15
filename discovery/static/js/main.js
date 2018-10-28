@@ -36,17 +36,38 @@ document.addEventListener('DOMContentLoaded', function () {
     var instances = M.FloatingActionButton.init(fab, {});
 });
 
+var getSearchResponse = function () {
+
+    var selectActivity = parseInt($('#selectActivity').val());
+    var selectCategory = parseInt($('#selectCategory').val());
+
+    var toSend = {'activity': selectActivity, 'category': selectCategory};
+    console.log(toSend);
+    $.ajax({
+        url: "/api/search/",
+        type: "POST",
+        data: toSend
+    }).done(function(data) {
+        console.log(data);
+    });
+};
+
 $(document).ready(function () {
+    $('select').formSelect();
+
+
+    $('select').change(function() {
+        getSearchResponse();
+    });
+
     $('#submitLocationForm').click(function () {
         console.log(getFormData($("#locationForm")));
     });
-});
-
-$(document).ready(function () {
     $('#submitActivityForm').click(function () {
         console.log(getFormData($("#activityForm")));
     });
 });
+
 
 function getFormData($form) {
     var unindexed_array = $form.serializeArray();

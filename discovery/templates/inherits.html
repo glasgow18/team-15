@@ -22,6 +22,27 @@
         </div>
     </div>
 
+    <div class="row">
+        <div class='input-field col s12'>
+            <select id="selectCategory">
+                <option value="" disabled selected> Choose Category</option>
+                {% for category in categories %}
+                    <option value="{{ category.id }}">{{ category.name }}</option>
+                {% endfor %}
+            </select>
+            <label>Categories</label>
+        </div>
+
+        <div class='input-field col s12'>
+            <select id="selectActivity">
+                <option value="" disabled selected> Choose Activity</option>
+                {% for activity in activities %}
+                    <option value="{{ activity.id }}">{{ activity.name }}</option>
+                {% endfor %}
+            </select>
+            <label>Activities</label>
+        </div>
+    </div>
 
     <!-- Card Details Structure -->
     <div id="CardDetails" class="modal">
