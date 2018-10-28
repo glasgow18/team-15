@@ -8,23 +8,39 @@ document.addEventListener('DOMContentLoaded', function () {
             console.log("same");
         }
     });
-
 });
 
-//
-// $('modal1').modal.options.onOpenStart=clearFormData();
+var getSearchResponse = function () {
+
+    var formData = {};
+    var selectActivity = $('#selectActivity').val();
+    var selectCategory = $('#selectCategory').val();
+
+    var toSend = Object.assign({'activity': selectActivity, 'category': selectCategory}, formData);
+
+    $.ajax({
+        url: "/api/search/",
+        type: "POST",
+        data: toSend
+    });
+};
 
 $(document).ready(function () {
+    $('select').formSelect();
+
+
+    $('select').change(function() {
+        getSearchResponse();
+    });
+
     $('#submitLocationForm').click(function () {
         console.log(getFormData($("#locationForm")));
     });
-});
-
-$(document).ready(function () {
     $('#submitActivityForm').click(function () {
         console.log(getFormData($("#activityForm")));
     });
 });
+
 
 function getFormData($form) {
     var unindexed_array = $form.serializeArray();

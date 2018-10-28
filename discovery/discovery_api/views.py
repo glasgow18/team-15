@@ -9,6 +9,14 @@ from rest_framework.views import APIView
 from discovery_api.models import Location, Warnings, KeyWord, Activity
 from discovery_api.serializers import UserSerializer, LocationSerializer
 
+from rest_framework.authentication import SessionAuthentication, BasicAuthentication
+
+
+class CsrfExemptSessionAuthentication(SessionAuthentication):
+
+    def enforce_csrf(self, request):
+        return  # To not perform the csrf check previously happening
+
 
 class UserViewSet(viewsets.ModelViewSet):
     """
@@ -80,8 +88,13 @@ class SearchView(APIView):
     throttle_classes = ()
     permission_classes = ()
     parser_classes = (parsers.FormParser, parsers.MultiPartParser, parsers.JSONParser,)
+    authentication_classes = (CsrfExemptSessionAuthentication,)
+
     renderer_classes = (renderers.JSONRenderer,)
 
     def post(self, request, *args, **kwargs):
         print(request.data)
+        # do some database query here based on request.data
+        results = request.data
+
         return Response({'result': []})
