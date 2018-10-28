@@ -57,6 +57,7 @@ var getSearchResponse = function () {
             $(cardWrapper).append(curCard.replace("%POSS_ACT%", item.possibleActivities))
         }
         return;
+    })
     }
 
     var toSend = {'activity': selectActivity, 'category': selectCategory};
