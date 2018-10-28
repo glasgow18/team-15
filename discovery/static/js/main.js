@@ -106,4 +106,9 @@ $(document).ready(function () {
         $('#modal2').modal('open');
     });
 
+    $('#btnViewMap').click(function() {
+       $('#CardWrapper').hide();
+       $('#map').show();
+    });
+
 });

@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-
+{% load static %}
 
 {% block body %}
     <nav>
@@ -22,7 +22,7 @@
             <input id="search" type="text" class="validate">
             <label for="search">Search</label>
         </div>
-{% comment %}        <div class="input-field col s12">
+        {% comment %}        <div class="input-field col s12">
 
             <input id="search" type="search" required>
             <label class="label-icon" for="search"><i class="material-icons">search</i></label>
@@ -48,6 +48,16 @@
             <label>Activities</label>
         </div>
     </div>
+
+    <!-- Disabled Switch -->
+    <div class="row map-switch">
+        <div class="col s12">
+            <div class="map-button-container"><a class="waves-effect waves-light btn">List View</a>
+                <a class="waves-effect waves-light btn" id="btnViewMap">Map View</a></div>
+
+        </div>
+    </div>
+
 
     <!-- Card Details Structure -->
     <div id="CardDetails" class="modal">
@@ -124,8 +134,11 @@
         </div>
     </div>
 
+    <div id="map"></div>
 
-
+    <script src="{% static "js/map.js" %}"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCPVCalpqJ8RzlRN4Mrjn_GBinckQdFvBI&callback=initMap"
+            async defer></script>
     <!-- Footer -->
 
 
