@@ -60,6 +60,8 @@ class Location(models.Model):
     warnings = models.ManyToManyField(Warnings, help_text="warnings")
     activities = models.ManyToManyField(Activity, help_text="tags")
 
+    lat = models.FloatField(null=True)
+    long = models.FloatField(null=True)
 
     def __str__(self):
         return self.name
@@ -69,4 +71,3 @@ class Review(models.Model):
     userName = models.CharField(max_length=20)
     location = models.ForeignKey(Location, on_delete=models.SET_NULL, null=True)
     reviewDescription = models.CharField(max_length=1000)
-
