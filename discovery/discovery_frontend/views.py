@@ -13,5 +13,4 @@ def hello(req):
     add_location_form = AddLocationForm()
     categories = Category.objects.all()
     activities = Activity.objects.all()
-
     return render(req, "inherits.html", context={'form': add_location_form, 'categories': categories, 'activities':activities})

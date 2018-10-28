@@ -39,6 +39,28 @@ $("#CardDetails").click(function (){
 
 });
 
+function getCookie(name) {
+    var cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+        var cookies = document.cookie.split(';');
+        for (var i = 0; i < cookies.length; i++) {
+            var cookie = jQuery.trim(cookies[i]);
+            // Does this cookie string begin with the name we want?
+            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+}
+
+function csrfSafeMethod(method) {
+    // these HTTP methods do not require CSRF protection
+    return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+}
+
+
 var getSearchBarResponse = function() {
    var searchBox= document.getElementById('search');
    var filter = {'filter': searchBox.value}
@@ -94,7 +116,6 @@ var getSearchResponse = function () {
         else{
             get_original_card_data()
         }
-
         document.getElementById("cardCount").innerHTML = "Rows Returned : "+numItems;
     });
 };
@@ -106,14 +127,42 @@ $(document).ready(function () {
 
     $('select').change(function() {
         getSearchResponse();
-
-
-
     });
 
     $('#submitLocationForm').click(function () {
-        console.log(getFormData($("#locationForm")));
+        formData = getFormData($("#locationForm"));
+        csrftoken = getCookie('csrftoken');
+        $.ajaxSetup({
+            beforeSend: function(xhr, settings) {
+                if (!csrfSafeMethod(settings.type) && !this.crossDomain) {
+                    xhr.setRequestHeader("X-CSRFToken", csrftoken);
+                }
+            }
+        });
+
+        var numItems = 0;
+
+        $.ajax({
+            url: "/api/locations/",
+            type: "POST",
+            dataType: 'json',
+            contentType: 'application/json',
+            data: JSON.stringify(formData)
+        }).done(function (data) {
+            console.log(data);
+            if (data.length > 0) {
+                numItems = data.length;
+                generate_card_data(data)
+            }
+            else {
+                get_original_card_data()
+            }
+        document.getElementById("cardCount").innerHTML = "Rows Returned : "+numItems;
     });
+        console.log(formData)
+    });
+
+
     $('#submitActivityForm').click(function () {
         console.log(getFormData($("#activityForm")));
     });

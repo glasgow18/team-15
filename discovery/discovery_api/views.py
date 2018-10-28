@@ -121,3 +121,18 @@ class SearchBarView(ListAPIView):
     def post(self, request, *args, **kwargs):
         locations=SearchBar.search_str(request.data['filter'])
         return Response(LocationSerializer(locations, context={'request': request}, many=True).data,status=status.HTTP_200_OK)
+
+
+class AddLocation(ListAPIView):
+    def post(self, request):
+        print(request)
+        locname = request.data.get("locname", "")
+        locaddr = request.data.get["address"]
+        locprice = request.data["price"]
+        locdesc = request.data["description"]
+
+        location = Location(name=locname, free=True, price=locprice, description=locdesc, address=locaddr)
+
+        location.save()
+
+        return Response(status=status.HTTP_200_OK)
