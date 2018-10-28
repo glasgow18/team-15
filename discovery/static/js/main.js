@@ -18,6 +18,7 @@ var cardHtml = `
 </div>
 `;
 
+var currentItems = [];
 
 function getCookie(name) {
     var cookieValue = null;
@@ -183,6 +184,20 @@ $(document).ready(function () {
     $('#btnViewMap').click(function () {
         $('#CardWrapper').hide();
         $('#map').show();
+
+        for (let i = 0; i < currentItems.length; i++) {
+            let item = currentItems[i];
+            if (item.hasOwnProperty('lat') && item.hasOwnProperty('long')) {
+                if (item.lat !== null && item.lat !== null && item.long !== null && item.lat !== null) {
+                    var marker = new google.maps.Marker({
+                        position: {lat: item.lat, lng: item.long},
+                        map: map,
+                        title: item.name
+                    });
+
+                }
+            }
+        }
     });
 
     $('#btnViewList').click(function () {
@@ -219,6 +234,7 @@ var generate_card_data = function (data) {
         curCard = curCard.replace("%DESC%", item.description);
         curCard = curCard.replace("%DATALOCATION%", escape(JSON.stringify(item)));
         $(cardWrapper).append(curCard.replace("%POSS_ACT%", item.possibleActivities))
+        currentItems.push(item);
     }
 
     $('.modal-trigger').click(function () {
