@@ -5,5 +5,5 @@ from django.urls import path
 from discovery_frontend import views
 
 urlpatterns = [
-    url("/hello", views.hello)
+    url(r'^$', views.hello)
 ]

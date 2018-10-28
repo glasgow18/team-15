@@ -1,0 +1,17 @@
+{
+  "name": "Discovery",
+  "short_name": "Discovery",
+  "theme_color": "#008309",
+  "background_color": "#0d90e4",
+  "display": "standalone",
+  "scope": "/",
+  "start_url": "/",
+  "icons": [
+    {
+      "src": "/static/img/icon_512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "density": 0.75
+    }
+  ]
+}
