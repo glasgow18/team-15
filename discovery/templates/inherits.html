@@ -44,51 +44,97 @@
         </div>
     </div>
 
+    <!-- Context Wrapper that contains all the cards after js for loop -->
+    <div id="ContextWrapper">
+    </div>
+
+    <!-- Card Details Structure -->
+    <div id="CardDetails" class="modal">
+        <div class="modal-content">
+            <h4>Title</h4>
+            <p>Description</p>
+            <i class="material-icons">location_on</i>
+        </div>
+        <div class="modal-footer">
+            <a href="#!" class="modal-close waves-effect waves-green btn-flat">Agree</a>
+        </div>
+    </div>
+
     <!-- Cards -->
-    <div class="flex-container">
+    <a href="#CardDetails" class="modal-trigger">
 
-        <div class="card white place-card">
-            <div class="card-content black-text">
-                <span class="card-title">Multi Purpose Church Hall - St James Church </span>
-                <p> Hall for hire, multi activity, sound or music space, flexible use, quiet, solitary, room, safe. </p>
-            </div>
-            <div class="card-action">
-                <div>
-                    <a>Contact </a>
-                    <div>01968 768954</div>
+        <div class="flex-container">
+
+            <div class="card white place-card">
+                <div class="card-content black-text">
+                    <span class="card-title">Multi Purpose Church Hall - St James Church </span>
+                    <p> Hall for hire, multi activity, sound or music space, flexible use, quiet, solitary, room,
+                        safe. </p>
+                </div>
+                <div class="card-action">
+                    <div>
+                        <b>CONTACT</b>
+                        <div>01968 768954</div>
+                    </div>
                 </div>
             </div>
         </div>
+    </a>
 
 
-        <div class="card white place-card">
-            <div class="card-content black-text">
-                <span class="card-title">Outdoor Day Service - Tiphereth Camphill Community</span>
-                <p> Day Service, Outdoors, Environmental, Composting, Litter Collection, Woodwork, Gardening, group
-                    based, nature. </p>
-            </div>
-            <div class="card-action">
-                <div>
-                    <a>Contact </a>
-                    <div>0131 441 2055</div>
-                </div>
+<a href="#CardDetails" class="modal-trigger">
+   <div class="flex-container">
+    <div class="card white place-card">
+        <div class="card-content black-text">
+            <span class="card-title">Outdoor Day Service - Tiphereth Camphill Community</span>
+            <p> Day Service, Outdoors, Environmental, Composting, Litter Collection, Woodwork, Gardening, group based,
+                nature. </p>
+        </div>
+        <div class="card-action">
+            <div>
+                <b>CONTACT</b>
+                <div>0131 441 2055</div>
             </div>
         </div>
+    </div>
+   </div>
+    </a>
 
-
-        <div class="card white place-card">
-            <div class="card-content black-text">
-                <span class="card-title">Aquarium - Dobbies Garden Centre</span>
-                <p> Explore a different environment with huge structures like trains and colliery machinery. A sensory
-                    environment with lots to see. </p>
-            </div>
-            <div class="card-action">
-                <div>
-                    <a>Contact </a>
-                    <div>0141 336 28</div>
-                </div>
+<a href="#CardDetails" class="modal-trigger">
+   <div class="flex-container">
+    <div class="card white place-card">
+        <div class="card-content black-text">
+            <span class="card-title">Aquarium - Dobbies Garden Centre</span>
+            <p> Explore a different environment with huge structures like trains and colliery machinery. A sensory
+                environment with lots to see. </p>
+        </div>
+        <div class="card-action">
+            <div>
+                <b>CONTACT</b>
+                <div>0141 336 28</div>
             </div>
         </div>
+    </div>
+   </div>
+    </a>
+    </div>
+    <!-- One Card -->
+
+
+
+
+
+
+    <!-- Loop to create cards -->
+    <script>
+        var wrapper = document.getElementById("ContextWrapper");
+        var cardWrapper = document.getElementById("CardWrapper");
+        // 0 currently means that there is still one card, namely the one in the cardwrapper above
+        for (var i = 0; i < 0; i++) {
+            wrapper.innerHTML += cardWrapper.innerHTML
+        }
+
+    </script>
 
     </div>
 
@@ -121,10 +167,32 @@
             <a href="#!" class="modal-close waves-effect waves-green btn-flat" id="submitActivityForm">Submit</a>
         </div>
     </div>
+    <!-- Modal Structure -->
+    <div id="modal1" class="modal">
+        <div class="modal-content">
+            <h4>Modal Header</h4>
+            {% include "activityForm.html" %}
+        </div>
+        <div class="modal-footer">
+            <a href="#!" class="modal-close waves-effect waves-green btn-flat">Cancel</a>
+            <a href="#!" class="modal-close waves-effect waves-green btn-flat" id="submitActivityForm">Submit</a>
+        </div>
+    </div>
 
     <!-- Modal Trigger -->
     <a class="waves-effect waves-light btn modal-trigger" href="#modal2">Add Location</a>
 
+    <!-- Modal Structure -->
+    <div id="modal2" class="modal">
+        <div class="modal-content">
+            <h4>Add location</h4>
+            {% include "locationForm.html" %}
+        </div>
+        <div class="modal-footer">
+            <a href="#!" class="modal-close waves-effect waves-green btn-flat">Cancel</a>
+            <a href="#!" class="modal-close waves-effect waves-green btn-flat" id="submitLocationForm">Submit</a>
+        </div>
+    </div>
     <!-- Modal Structure - location -->
     <div id="modal2" class="modal">
         <div class="modal-content">
@@ -136,6 +204,8 @@
             <a href="#!" class="modal-close waves-effect waves-green btn-flat" id="submitLocationForm">Submit</a>
         </div>
     </div>
+
+
 
     <!-- Footer -->
 
