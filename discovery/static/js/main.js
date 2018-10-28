@@ -1,9 +1,8 @@
 // template card
 var cardHtml = `
-    <div class="row">
-        <div class="col s12 m6">
+<div class="flex-container">
             <a href="#CardDetails" class="modal-trigger">
-                <div class="card white">
+                <div class="card white place-card">
                     <div class="card-content black-text">
                         <span id="loc_name" class="card-title">%TITLE%</span>
                         <p>%DESC%</p>
@@ -12,11 +11,10 @@ var cardHtml = `
                         <div>
                             <div>%POSS_ACT%</div>
                         </div>
-                    </div>
-                </div>
             </a>
         </div>
     </div>
+  </div>
 `;
 
 document.addEventListener('DOMContentLoaded', function () {
@@ -104,7 +102,7 @@ $(document).ready(function () {
     });
 
     $('#addLocation').click(function() {
-        ;
+
     });
 
 });
