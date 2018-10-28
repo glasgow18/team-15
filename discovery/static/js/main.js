@@ -1,22 +1,22 @@
 // template card
 var cardHtml = `
-  <a href="#CardDetails" class="modal-trigger">
-        <div class="row">
-            <div class="col s12 m6">
-                    <div class="card white">
-                        <div class="card-content black-text">
-                            <span id="loc_name" class="card-title">%TITLE%</span>
-                            <p>%DESC%</p>
-                        </div>
-                        <div class="card-action">
-                            <div>
-                                <div>%POSS_ACT%</div>
-                            </div>
+    <div class="row">
+        <div class="col s12 m6">
+            <a href="#CardDetails" class="modal-trigger">
+                <div class="card white">
+                    <div class="card-content black-text">
+                        <span id="loc_name" class="card-title">%TITLE%</span>
+                        <p>%DESC%</p>
+                    </div>
+                    <div class="card-action">
+                        <div>
+                            <div>%POSS_ACT%</div>
                         </div>
                     </div>
-            </div>
+                </div>
+            </a>
         </div>
-    </a>
+    </div>
 `;
 
 document.addEventListener('DOMContentLoaded', function () {
@@ -31,6 +31,9 @@ document.addEventListener('DOMContentLoaded', function () {
     });
     var card = document.querySelectorAll('.CardWrapper');
     M.Modal.init(card, {})
+
+    var fab = document.querySelectorAll('.fixed-action-btn');
+    var instances = M.FloatingActionButton.init(fab, {});
 });
 
 $(document).ready(function () {
@@ -74,4 +77,13 @@ $(document).ready(function () {
         }
 
     })
+
+    $('#addActivity').click(function() {
+
+    });
+
+    $('#addLocation').click(function() {
+        ;
+    });
+
 });
