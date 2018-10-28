@@ -1,12 +1,11 @@
 {% extends "base.html" %}
-
+{% load static %}
 
 {% block body %}
     <nav>
         <div class="nav-wrapper">
             <a href="#!" class="brand-logo"><i class="material-icons"></i>Discovery</a>
             <ul class="right hide-on-med-and-down">
-                <li><a href=""><i class="material-icons">search</i></a></li>
                 <li><a href="mobile.html"><i class="material-icons">more_vert</i></a></li>
             </ul>
         </div>
@@ -14,18 +13,24 @@
 
 
     <!--Search bar -->
-    <div class="search">
-        <div class="input-field">
+
+
+    <div class="row search-row">
+
+        <div class="input-field col s12">
+            <i class="material-icons prefix">search</i>
+            <input id="search" type="text" class="validate">
+            <label for="search">Search</label>
+        </div>
+        {% comment %}        <div class="input-field col s12">
+
             <input id="search" type="search" required>
             <label class="label-icon" for="search"><i class="material-icons">search</i></label>
             <i class="material-icons">close</i>
-        </div>
-    </div>
-
-    <div class="row">
-        <div class='input-field col s12'>
+        </div>{% endcomment %}
+        <div class='input-field col s12 m6 l6'>
             <select id="selectCategory">
-                <option value="" selected> Choose Category</option>
+                <option value="" disabled selected> Choose Category</option>
                 {% for category in categories %}
                     <option value="{{ category.id }}">{{ category.name }}</option>
                 {% endfor %}
@@ -33,9 +38,9 @@
             <label>Categories</label>
         </div>
 
-        <div class='input-field col s12'>
+        <div class='input-field col s12 m6 l6'>
             <select id="selectActivity">
-                <option value="" selected> Choose Activity</option>
+                <option value="" disabled selected> Choose Activity</option>
                 {% for activity in activities %}
                     <option value="{{ activity.id }}">{{ activity.name }}</option>
                 {% endfor %}
@@ -44,9 +49,15 @@
         </div>
     </div>
 
-    <div id="cardCount">
+    <!-- Disabled Switch -->
+    <div class="row map-switch">
+        <div class="col s12">
+            <div class="map-button-container"><a class="waves-effect waves-light btn">List View</a>
+                <a class="waves-effect waves-light btn" id="btnViewMap">Map View</a></div>
 
+        </div>
     </div>
+
 
     <!-- Card Details Structure -->
     <div id="CardDetails" class="modal">
@@ -61,23 +72,21 @@
     </div>
 
     <!-- Contains all the cards-->
-    <div id="CardWrapper" class="cardWrapper">
+    <div id="CardWrapper" class="row">
     </div>
 
     <!-- Floating Action Button -->
     <div class="fixed-action-btn">
         <a class="btn-floating btn-large red">
-            <i class="large material-icons">mode_edit</i>
+            <i class="large material-icons">add</i>
         </a>
         <ul>
-            <li><a id="addLocation" class="btn-floating green"><i class="material-icons">add</i></a></li>
-            <li><a id="addActivity" class="btn-floating blue"><i class="material-icons">add_alert</i></a></li>
+            <li><a id="addLocation" class="btn-floating green"><i class="material-icons">add_location</i></a></li>
+            <li><a id="addActivity" class="btn-floating blue"><i class="material-icons">create</i></a></li>
         </ul>
     </div>
 
     <!-- Modal Trigger -->
-    <a class="waves-effect waves-light btn modal-trigger" href="#modal1">Add Activity</a>
-
     <!-- Modal Structure - new event -->
     <div id="modal1" class="modal">
         <div class="modal-content">
@@ -101,7 +110,6 @@
     </div>
 
     <!-- Modal Trigger -->
-    <a class="waves-effect waves-light btn modal-trigger" href="#modal2">Add Location</a>
 
     <!-- Modal Structure -->
     <div id="modal2" class="modal">
@@ -126,8 +134,11 @@
         </div>
     </div>
 
+    <div id="map"></div>
 
-
+    <script src="{% static "js/map.js" %}"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCPVCalpqJ8RzlRN4Mrjn_GBinckQdFvBI&callback=initMap"
+            async defer></script>
     <!-- Footer -->
 
 
