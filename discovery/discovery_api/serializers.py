@@ -14,8 +14,22 @@ class LocationSerializer(serializers.ModelSerializer):
 
     def create(self, validated_data):
         print(validated_data)
+        temp_keywords = validated_data['keyWords']
+        temp_activities = validated_data['activities']
+        temp_warnings = validated_data['warnings']
+        del validated_data['keyWords']
+        del validated_data['activities']
+        del validated_data['warnings']
 
         obj = Location.objects.create(**validated_data)
+        for keyword in temp_keywords:
+            print(keyword)
+            obj.keyWords.add(KeyWord.objects.get(pk=keyword.id))
+        for activity in temp_activities:
+            obj.activities.add(Activity.objects.get(pk=activity.id))
+        for warning in temp_warnings:
+            obj.warnings.add(Warnings.objects.get(pk=warning.id))
+
         obj.save()
         return obj
 
