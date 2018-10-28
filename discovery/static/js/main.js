@@ -48,6 +48,14 @@ var getSearchResponse = function () {
 
     if(selectCategory == NaN && selectActivity == NaN){
         document.getElementById("cardCount").innerHTML = "Rows:"+ numItems;
+        $.get('/api/locations', function (data, status) {
+        for (let i = 0; i < data.length; i++) {
+            var item = data[i];
+            var cardWrapper = $("#CardWrapper");
+            var curCard = cardHtml.replace("%TITLE%", item.name)
+            curCard = curCard.replace("%DESC%", item.description)
+            $(cardWrapper).append(curCard.replace("%POSS_ACT%", item.possibleActivities))
+        }
         return;
     }
 
@@ -71,7 +79,6 @@ var getSearchResponse = function () {
                 numItems++;
             }
         }
-        document.getElementById("cardCount").innerHTML = "Rows:"+ numItems;
     });
 };
 

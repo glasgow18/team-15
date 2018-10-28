@@ -30,7 +30,7 @@
         </div>{% endcomment %}
         <div class='input-field col s12 m6 l6'>
             <select id="selectCategory">
-                <option value="" disabled selected> Choose Category</option>
+                <option value="" selected> Choose Category</option>
                 {% for category in categories %}
                     <option value="{{ category.id }}">{{ category.name }}</option>
                 {% endfor %}
@@ -40,7 +40,7 @@
 
         <div class='input-field col s12 m6 l6'>
             <select id="selectActivity">
-                <option value="" disabled selected> Choose Activity</option>
+                <option value="" selected> Choose Activity</option>
                 {% for activity in activities %}
                     <option value="{{ activity.id }}">{{ activity.name }}</option>
                 {% endfor %}
