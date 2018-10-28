@@ -7,9 +7,9 @@ from rest_framework.generics import ListAPIView
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from discovery_api.models import Location, Warnings, KeyWord, Activity
+from discovery_api.models import Location, Warnings, KeyWord, Activity, Comment
 from discovery_api.search import SearchBar
-from discovery_api.serializers import UserSerializer, LocationSerializer
+from discovery_api.serializers import UserSerializer, LocationSerializer, CommentSerializer
 
 from rest_framework.authentication import SessionAuthentication, BasicAuthentication
 
@@ -84,6 +84,19 @@ class LocationViewSet(viewsets.ModelViewSet):
 
     def perform_create(self, serializer):
         serializer.save()
+
+
+class CommentsView(ListAPIView):
+    throttle_classes = ()
+    permission_classes = ()
+    parser_classes = (parsers.FormParser, parsers.MultiPartParser, parsers.JSONParser,)
+    authentication_classes = (CsrfExemptSessionAuthentication,)
+    renderer_classes = (renderers.JSONRenderer,)
+    def post(self, request, *args, **kwargs):
+        comments = Comment.objects.filter(location_id=request.data['location'])
+        return Response(CommentSerializer(comments, context={'request': request}, many=True).data, status=status.HTTP_200_OK)
+
+
 
 
 class SearchView(ListAPIView):

@@ -71,3 +71,8 @@ class Review(models.Model):
     userName = models.CharField(max_length=20)
     location = models.ForeignKey(Location, on_delete=models.SET_NULL, null=True)
     reviewDescription = models.CharField(max_length=1000)
+
+
+class Comment(models.Model):
+    location = models.ForeignKey(Location)
+    content = models.CharField(max_length=1000)

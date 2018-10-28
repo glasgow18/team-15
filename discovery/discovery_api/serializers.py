@@ -1,7 +1,7 @@
 from django.contrib.auth.models import User, Group
 from rest_framework import serializers
 
-from discovery_api.models import Location, ContactDetail, Category, Activity, Warnings, KeyWord, Review
+from discovery_api.models import Location, ContactDetail, Category, Activity, Warnings, KeyWord, Review, Comment
 
 
 class UserSerializer(serializers.ModelSerializer):
@@ -72,3 +72,9 @@ class ReviewSerializer(serializers.ModelSerializer):
     class Meta:
         model = Review
         fields = ('userName', 'location', 'reviewDescription')
+
+
+class CommentSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Comment
+        fields = ('location', 'content')
