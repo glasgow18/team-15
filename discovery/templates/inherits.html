@@ -6,7 +6,6 @@
         <div class="nav-wrapper">
             <a href="#!" class="brand-logo"><i class="material-icons"></i>Discovery</a>
             <ul class="right hide-on-med-and-down">
-                <li><a href=""><i class="material-icons">search</i></a></li>
                 <li><a href="mobile.html"><i class="material-icons">more_vert</i></a></li>
             </ul>
         </div>
@@ -14,16 +13,22 @@
 
 
     <!--Search bar -->
-    <div class="search">
-        <div class="input-field">
+
+
+    <div class="row search-row">
+
+        <div class="input-field col s12">
+            <i class="material-icons prefix">search</i>
+            <input id="search" type="text" class="validate">
+            <label for="search">Search</label>
+        </div>
+{% comment %}        <div class="input-field col s12">
+
             <input id="search" type="search" required>
             <label class="label-icon" for="search"><i class="material-icons">search</i></label>
             <i class="material-icons">close</i>
-        </div>
-    </div>
-
-    <div class="row">
-        <div class='input-field col s12'>
+        </div>{% endcomment %}
+        <div class='input-field col s12 m6 l6'>
             <select id="selectCategory">
                 <option value="" disabled selected> Choose Category</option>
                 {% for category in categories %}
@@ -33,7 +38,7 @@
             <label>Categories</label>
         </div>
 
-        <div class='input-field col s12'>
+        <div class='input-field col s12 m6 l6'>
             <select id="selectActivity">
                 <option value="" disabled selected> Choose Activity</option>
                 {% for activity in activities %}
@@ -57,7 +62,7 @@
     </div>
 
     <!-- Contains all the cards-->
-    <div id="CardWrapper">
+    <div id="CardWrapper" class="row">
     </div>
 
     <!-- Floating Action Button -->

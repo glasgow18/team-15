@@ -1,20 +1,21 @@
 // template card
 var cardHtml = `
-<div class="flex-container">
-            <a href="#CardDetails" class="modal-trigger">
-                <div class="card white place-card">
-                    <div class="card-content black-text">
-                        <span id="loc_name" class="card-title">%TITLE%</span>
-                        <p>%DESC%</p>
-                    </div>
-                    <div class="card-action">
-                        <div>
-                            <div>%POSS_ACT%</div>
-                        </div>
-            </a>
+<div class="col s12 m12 l6 container-col">
+<a href="#CardDetails" class="modal-trigger">
+    <div class="card white place-card">
+        <div class="card-content black-text">
+            <span id="loc_name" class="card-title">%TITLE%</span>
+            <p>%DESC%</p>
+        </div>
+        <div class="card-action">
+            <div>
+                <div>%POSS_ACT%</div>
+            </div>
+
         </div>
     </div>
-  </div>
+</a>
+</div>
 `;
 
 document.addEventListener('DOMContentLoaded', function () {

@@ -28,11 +28,21 @@
 }
 
 .place-card {
-    width: 50%;
-    min-width: 55%;
+    width: 97%;
+    height: 165px;
     margin: 10px !important;
 }
 
+.container-col {
+    height: 200px;
+}
+
+
 .material-icons{
     small: 2rem;
+}
+
+.search-row {
+    margin-top: 30px;
+    margin-bottom: 20px;
 }
