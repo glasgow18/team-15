@@ -150,10 +150,11 @@ class CreateCommentView(APIView):
 
         comment = request.data['comment']
         location_name = request.data['name']
-        new_activity = Comment.objects.create(content=comment, location=Location.objects.filter(name=location_name).first())
+
         annotations = (analyze(comment))
         score = annotations.document_sentiment.score
         if score > 0:
+            new_activity = Comment.objects.create(content=comment,location=Location.objects.filter(name=location_name).first())
             return Response(CommentSerializer(new_activity, context={'request': request}).data, status=status.HTTP_200_OK)
         else:
             return Response(status=status.HTTP_400_BAD_REQUEST)
